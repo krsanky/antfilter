@@ -1,5 +1,10 @@
 PROGRAM  = antfilter
 
+TARGET  = target
+VERSION = 0.2
+
+CP      = cp -a
+
 INCLUDE  = include
 SRC      = src
 BIN      = bin
@@ -42,14 +47,8 @@ clean   :
 	-rm -rf $(BIN) $(OBJDIR)
 	-rm -rf $(TARGET)
 
-## tar
-TARGET = target
-VERSION = 0.1
-TARNAME = $(PROGRAM)-$(VERSION).tar.gz
-CP = cp -a
-
+### TAR ###
 target: init copy_src copy_include copy_makefile
-
 
 copy_src: init
 	$(CP) $(SRC) $(TARGET)
@@ -61,6 +60,6 @@ copy_makefile:  init
 	$(CP) Makefile $(TARGET)/
 
 tar: target
-	@printf "\n>> making $(TARNAME) >>\n"
-	(cd $(TARGET) ; tar -cz --exclude-from="../exclude-pats" -f $(TARNAME) * ; pwd )
+	@printf "\n>> making $(PROGRAM)-$(VERSION).tar.gz >>\n"
+	(cd $(TARGET) ; tar -cz --exclude-from="../exclude-pats" -f $(PROGRAM)-$(VERSION).tar.gz * ; pwd )
 
