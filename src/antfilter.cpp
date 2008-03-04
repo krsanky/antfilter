@@ -1,6 +1,8 @@
 #include <map>
 #include <iostream>
 #include <string>
+#include <list>
+#include <vector>
 using namespace std;
 
 #include "getopt_pp.h"
@@ -19,10 +21,17 @@ int main(int argc, char ** argv )
 {
 
     int ret = -1;
-    string ff_name, sf_name, test;
-    bool flag;
+    string ff_name, sf_name, test, src_dir;
+    bool debug;
+
+    vector<int> v_int;
+    vector<string> src_files, filter_files;
+
     GetOpt_pp ops(argc, argv);
-    ops.exceptions(std::ios::failbit | std::ios::eofbit);
+    //eofbit cheks for options not present 
+    //failbit check for malforned options (string instead of int)
+    //ops.exceptions(std::ios::failbit | std::ios::eofbit);
+    ops.exceptions(std::ios::failbit);
 
     try
     {
@@ -30,27 +39,43 @@ int main(int argc, char ** argv )
             show_usage();
             return(1);
         }
-        ops >> Option('s', "source_file", sf_name); 
-        ops >> Option('f', "filter_file", ff_name); 
-        ops >> Option('t', "test", test, "DEF-ARG"); 
-        ops >> OptionPresent('l', "flag", flag);
-        if(flag){
-            cout << "FLAG!\n";
-        }
-        ops.end_of_options();    
+        ops >> Option('s', "src_file", src_files); 
+        ops >> Option('f', "filter_file", filter_files); 
+        ops >> OptionPresent('D', "debug", debug);
 
-        run_filter(ff_name, sf_name);
+        //this checks for options given but not asked for (only if eofbit is set?)
+        //ops.end_of_options(); 
+        //what if we don't want eofbit set ?
+        if( ops.options_remain() ) throw TooManyOptionsEx();
+
+        if( debug ){
+            cout << "debug:\n";
+
+            for(vector<string>::const_iterator it = src_files.begin(); it != src_files.end(); ++it)
+                cout << *it << ":";
+            cout << "\n";
+
+            for(vector<string>::const_iterator it = filter_files.begin(); it != filter_files.end(); ++it)
+                cout << *it << ":";
+            cout << "\n";
+        }
+
+
+        //foreach filter-file ... run_filter() on each src file. 
+        //run_filter(ff_name, sf_name);
 
         ret = 0;
     }
-    catch(TooManyOptionsEx)
+    catch(TooManyOptionsEx &ex)
     {
-        cerr << "extraneous commandline option(s)\n\n";
+        cout << "extraneous commandline option(s):" 
+             << ex.what() << endl << endl;
         show_usage();
     }
-    catch(GetOptEx)
+    catch(GetOptEx &ex) //GetOptEx is the baseclass for getopt_pp defined Exceptions
     {
-        cerr << "invalid commandline option(s)\n\n";
+        cout << "getopt_pp exception:" 
+             << ex.what() << endl << endl;
         show_usage();
     }
 
@@ -60,10 +85,9 @@ int main(int argc, char ** argv )
 void show_usage()
 {
     cout << "-h, --help:        this message\n" 
-         << "-s, --source_file: file to run filter on\n"
-         << "-f, --filter_file: filter file\n"
-         << "-t, --test:        this is a test option that doesn't need to be present\n"
-         << "-l, --flag:        this is a test a flag option (no argument to the option)\n";
+         << "-s, --src_file:    file(s) to run filter on\n"
+         << "-f, --filter_file: filter file(s)\n"
+         << "-D, --debug:       echo some debugging stuff\n";
 }
 
 void run_filter(string ff_name, string sf_name)
