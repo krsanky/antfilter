@@ -17,7 +17,7 @@ void run_filter(string ff_name, string sf_name);
 
 
 //MAIN
-int main(int argc, char ** argv )
+int main(int argc, char ** argv)
 {
 
     int ret = -1;
@@ -51,18 +51,23 @@ int main(int argc, char ** argv )
         if( debug ){
             cout << "debug:\n";
 
+            cout << "SOURCES";
             for(vector<string>::const_iterator it = src_files.begin(); it != src_files.end(); ++it)
-                cout << *it << ":";
-            cout << "\n";
+                cout << ":" << *it;
+            cout << "\n\n";
 
+            cout << "FILTERS";
             for(vector<string>::const_iterator it = filter_files.begin(); it != filter_files.end(); ++it)
-                cout << *it << ":";
-            cout << "\n";
+                cout << ":" << *it;
+            cout << "\n\n";
         }
 
-
         //foreach filter-file ... run_filter() on each src file. 
-        //run_filter(ff_name, sf_name);
+        for(vector<string>::const_iterator s_it = src_files.begin(); s_it != src_files.end(); ++s_it){
+            for(vector<string>::const_iterator f_it = filter_files.begin(); f_it != filter_files.end(); ++f_it){
+                run_filter(*f_it, *s_it);
+            }
+        }
 
         ret = 0;
     }
