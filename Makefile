@@ -17,7 +17,7 @@ CFLAGS  += -Wall -I$(INCLUDE)
 DEFS     =
 LIBS     =
 
-OBJS     = filter_set.o filter_target.o getopt_pp.o
+OBJS     = filter_set.o filter_target.o
 
 vpath %.h   include
 vpath %.c   src
@@ -34,7 +34,7 @@ test: init test.o
 $(PROGRAM): init $(OBJS) $(PROGRAM).o 
 	$(CXX) $(CFLAGS) $(DEFS) -o $(BIN)/$(@) $(LIBS) \
 	$(OBJDIR)/$(@).o \
-        $(OBJDIR)/filter_set.o $(OBJDIR)/filter_target.o $(OBJDIR)/getopt_pp.o 
+        $(OBJDIR)/filter_set.o $(OBJDIR)/filter_target.o
 
 %.o: %.cpp
 	$(CXX) $(CFLAGS) $(DEFS) -c $(<) -o $(OBJDIR)/$(@)

@@ -18,17 +18,7 @@ void run_filter(string ff_name, string sf_name);
 //MAIN
 int main(int argc, char ** argv)
 {
-    cout << "start...\n";
-
     // -- begin getop section
-
-    // int getopt(int argc, char * const argv[],
-    //            const char *optstring);
-
-    //int o1 = getopt(argc, argv, "+a:");
-    //cout << "o1:" << (char)o1 << endl;
-    //cout << "o1 arg:" << argv[0] << endl;    
-
     int opt;
     while((opt = getopt(argc, argv, "+hDf:")) != -1) {
         cout << "opt:";    
@@ -56,7 +46,6 @@ int main(int argc, char ** argv)
             cout << "arg[" << i << "]:" << argv[i] << endl;
         }
     }
-
     // -- end getop section
 
     int ret = 1;
