@@ -1,7 +1,7 @@
 PROGRAM  = antfilter
 
 TARGET  = target
-VERSION = 0.2.1
+VERSION = 0.2.2
 
 CP      = cp -a
 
