@@ -34,6 +34,13 @@ void run_filter(string ff_name, string sf_name);
 //MAIN
 int main(int argc, char ** argv)
 {
+    bool debug = false;
+
+    int ret = 1;
+    string ff_name, sf_name, test, src_dir;
+    vector<int> v_int;
+    vector<string> src_files, filter_files;
+
     // -- begin getop section
     int opt;
     while((opt = getopt(argc, argv, "+hDf:")) != -1) {
@@ -43,10 +50,12 @@ int main(int argc, char ** argv)
             show_usage();
             exit(0);
         case 'D':
-            cout << "DDDDDD\n";
+            cout << "debug...\n";
+            debug = true;
             break;
         case 'f':
             cout << "t optarg:" << optarg;
+            filter_files.push_back(optarg);
             break;
         default: /* '?' */
             show_usage();
@@ -60,16 +69,10 @@ int main(int argc, char ** argv)
     if(optind < argc){
         for(int i = optind; i < argc; i++){
             cout << "arg[" << i << "]:" << argv[i] << endl;
+            src_files.push_back(argv[i]);
         }
     }
     // -- end getop section
-
-    int ret = 1;
-    string ff_name, sf_name, test, src_dir;
-    bool debug = false;
-
-    vector<int> v_int;
-    vector<string> src_files, filter_files;
     
     // ops >> Option('s', "src_file", src_files); 
     // ops >> Option('f', "filter_file", filter_files); 
@@ -80,12 +83,12 @@ int main(int argc, char ** argv)
         
         cout << "SOURCES";
         for(vector<string>::const_iterator it = src_files.begin(); it != src_files.end(); ++it)
-            cout << ":" << *it;
+            cout << "{" << *it << "}";
         cout << "\n\n";
         
         cout << "FILTERS";
         for(vector<string>::const_iterator it = filter_files.begin(); it != filter_files.end(); ++it)
-            cout << ":" << *it;
+            cout << "{" << *it << "}";
         cout << "\n\n";
     }
     
