@@ -1,5 +1,2 @@
 bin
 obj
-
-# the go distribution src:
-go/go/

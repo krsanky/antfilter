@@ -24,8 +24,8 @@ Given a file file.go, compile it using
     6g file.go
 
 6g is the Go compiler for amd64; it will write the output in file.6. The
-\u20186\u2019 identifies files for the amd64 architecture. The identifier
-letters for 386 and arm are \u20188\u2019 and \u20185\u2019. That is,
+6 identifies files for the amd64 architecture. The identifier
+letters for 386 and arm are 8 and 5. That is,
 if you were compiling for 386, you would use 8g and the output would be
 named file.8.
 
