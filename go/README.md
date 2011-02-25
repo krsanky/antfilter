@@ -65,3 +65,8 @@ Makefile. There are examples in places like go/src/cmd/godoc/Makefile and
 go/src/pkg/*/Makefile. The document about contributing to the Go project
 gives more detail about the process of building and testing Go programs.
 
+## emacs mode:
+
+<http://code.google.com/p/go/source/browse/misc/emacs/>
+
+Instructions in [go-mode-load.el](http://code.google.com/p/go/source/browse/misc/emacs/go-mode-load.el).
