@@ -11,5 +11,5 @@ My reasons are:
    (eg. this rules out clojure.)
 4. I want to learn go.
 
-I will start by doing this all in the "go" subdirecty.
+I will start by doing this all in the [go](https://github.com/krsanky/antfilter/tree/master/go) subdirecty.
 
