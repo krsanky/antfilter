@@ -1,29 +1,23 @@
-~~~
+These are some messy notes.
 
-hg clone -r release https://go.googlecode.com/hg/ go
+    hg clone -r release https://go.googlecode.com/hg/ go
 
-~~~
+
 
 $GOBIN
-    The location where binaries will be installed. The default is $GOROOT/bin
+The location where binaries will be installed. The default is $GOROOT/bin
 
-~~~
+    export GOROOT=$HOME/go
+    export GOARCH=386
+    export GOOS=linux
 
-export GOROOT=$HOME/go
-export GOARCH=386
-export GOOS=linux
 
-~~~
 
 To build the Go distribution, run
 
+    $ cd go/src
+    $ ./all.bash
 
-~~~
-
-$ cd go/src
-$ ./all.bash
-
-~~~
 
 
 #######################################
