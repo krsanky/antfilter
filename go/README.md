@@ -1,8 +1,7 @@
 These are some messy notes.
+I think I cut these from the go distribution's docs.
 
     hg clone -r release https://go.googlecode.com/hg/ go
-
-
 
 $GOBIN
 The location where binaries will be installed. The default is $GOROOT/bin
@@ -12,20 +11,17 @@ The location where binaries will be installed. The default is $GOROOT/bin
     export GOOS=linux
 
 
-
 To build the Go distribution, run
 
     $ cd go/src
     $ ./all.bash
 
 
-
-#######################################
-Writing programs:
+## Writing programs:
 
 Given a file file.go, compile it using
 
-$ 6g file.go
+    6g file.go
 
 6g is the Go compiler for amd64; it will write the output in file.6. The
 \u20186\u2019 identifies files for the amd64 architecture. The identifier
@@ -35,28 +31,30 @@ named file.8.
 
 To link the file, use
 
-$ 6l file.6
+    6l file.6
 
 and to run it
 
-$ ./6.out
+    ./6.out
 
 A complete example:
 
-$ cat >hello.go <<EOF
-package main
+    cat >hello.go <<EOF
+    package main
 
-import "fmt"
+    import "fmt"
 
-func main() {
-     fmt.Printf("hello, world\n")
-}
-EOF
-$ 6g hello.go
-$ 6l hello.6
-$ ./6.out
-hello, world
-$
+    func main() {
+         fmt.Printf("hello, world\n")
+    }
+    EOF
+
+    6g hello.go
+    6l hello.6
+
+    ./6.out
+    hello, world
+
 
 There is no need to list hello.6's package dependencies (in this case,
 package fmt) on the 6l command line. The linker learns about them by
