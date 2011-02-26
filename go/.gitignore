@@ -1,0 +1,6 @@
+
+# the go distribution src:
+go/
+
+*.out
+*.6
