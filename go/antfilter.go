@@ -1,7 +1,7 @@
 package main
 
 import (
-    "flag"  // command line option parser
+	"flag"  // command line option parser
 	"fmt"
 	"./file"
 )
