@@ -1,10 +1,9 @@
 package main
 
 import (
-    //"os"
     "flag"  // command line option parser
 	"fmt"
-	"./my_package"
+	"./file"
 )
 
 func main() {
@@ -13,14 +12,12 @@ func main() {
 
 	fmt.Printf("start...\n")
 
-	//var s string = ""
-
 	for i := 0; i < flag.NArg(); i++ {
         //os.Stdout.WriteString(s)
 		fmt.Printf(flag.Arg(i) + "\n")
 	}
 
-	my_package.Test1()
+	file.Read()
 }
 
 

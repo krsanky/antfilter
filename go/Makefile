@@ -6,13 +6,13 @@ include $(GOROOT)/src/Make.inc
 PROJ = antfilter
 
 # source files in package, order matters
-GOFILES=\
-	my_package.go \
+GOFILES =\
+	file.go \
 	$(PROJ).go
 
 # build "antfilter" executable
 $(PROJ): $(GOFILES)
-	$(GC) my_package.go
+	$(GC) file.go
 	$(GC) $(PROJ).go
 	$(LD) -o $@ $(PROJ).$O
 	@echo "Done. Executable is: $@"
