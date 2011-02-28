@@ -4,3 +4,8 @@ go/
 
 *.out
 *.6
+
+*.zip
+
+#the executable
+antfilter

@@ -4,6 +4,7 @@ import (
     //"os"
     "flag"  // command line option parser
 	"fmt"
+	"./my_package"
 )
 
 func main() {
@@ -18,6 +19,8 @@ func main() {
         //os.Stdout.WriteString(s)
 		fmt.Printf(flag.Arg(i) + "\n")
 	}
+
+	my_package.Test1()
 }
 
 
