@@ -7,11 +7,13 @@ PROJ = antfilter
 
 # source files in package, order matters
 GOFILES =\
+	filter.go \
 	file.go \
 	$(PROJ).go
 
 # build "antfilter" executable
 $(PROJ): $(GOFILES)
+	$(GC) filter.go
 	$(GC) file.go
 	$(GC) $(PROJ).go
 	$(LD) -o $@ $(PROJ).$O

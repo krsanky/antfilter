@@ -5,24 +5,24 @@ import (
 	"flag"
 	"fmt"
 	//"./file"
+	"./filter"
 )
 
+// flags / options / usage
 var (
 	fHelp *bool = flag.Bool("h", false, "this message")
 	fDebug *bool = flag.Bool("D", false, "echo debug info")
 	fFilterFile *string = flag.String("f", "", "filter file")
 )
 var Usage = func() {
-    fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
-	//antfilter [-h][-f <filter-file>][-D] <files-to-filte
-    flag.PrintDefaults()
+    fmt.Fprintf(os.Stderr, "usage of %s:\n", os.Args[0])
+    flag.PrintDefaults() //this is what happens by default w/o a Usage()
 }
 
 func main() {
 	flag.Parse()
 
 	if *fHelp {
-		//flag.PrintDefaults()
 		Usage()
 		return
 	}
@@ -32,11 +32,26 @@ func main() {
 		return
 	}
 
-	for i := 0; i < flag.NArg(); i++ {
-		fmt.Printf(flag.Arg(i) + "\n")
+	if *fDebug {
+		fmt.Printf("*fFilterFile: %v\n", *fFilterFile)
+		for i := 0; i < flag.NArg(); i++ {
+			fmt.Printf("file %v: %v\n", i, flag.Arg(i))
+		}
 	}
 
-	//file.Read()
+
+	flt, err := filter.NewFilter(*fFilterFile)
+	if err == nil {
+		fmt.Printf("flt.Filename:%v\n", flt.Filename)
+	} else {
+		fmt.Fprintf(os.Stderr, "error reading filter file: %v\n", err)
+		//return exit?
+	}
+
+
+
+
+
 }
 
 
