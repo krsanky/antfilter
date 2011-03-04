@@ -9,12 +9,14 @@ PROJ = antfilter
 GOFILES =\
 	filter.go \
 	file.go \
+	log.go \
 	$(PROJ).go
 
 # build "antfilter" executable
 $(PROJ): $(GOFILES)
 	$(GC) filter.go
 	$(GC) file.go
+	$(GC) log.go
 	$(GC) $(PROJ).go
 	$(LD) -o $@ $(PROJ).$O
 	@echo "Done. Executable is: $@"

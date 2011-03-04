@@ -6,6 +6,9 @@ import (
 	"fmt"
 	//"./file"
 	"./filter"
+	"io/ioutil" //contents, err := ioutil.ReadFile(fn)
+	"strings"
+	"./log"
 )
 
 // flags / options / usage
@@ -39,19 +42,34 @@ func main() {
 		}
 	}
 
-
-	flt, err := filter.NewFilter(*fFilterFile)
+	filterFile, err := ioutil.ReadFile(*fFilterFile)
 	if err == nil {
-		fmt.Printf("flt.Filename:%v\n", flt.Filename)
+		fmt.Printf("filterFile:\n%s\n", filterFile)
 	} else {
-		fmt.Fprintf(os.Stderr, "error reading filter file: %v\n", err)
-		//return exit?
+		fmt.Fprintf(os.Stderr, "err: %v\n", err)
+		os.Exit(1);
 	}
 
+	filterMap := map[string] string{}
+	//var filterMap map[string] string
+
+	//filterMap["asd"] = "123"
+
+	fmt.Printf("filterMap: %v\n", filterMap)
 
 
+	lines := strings.Split(string(filterFile), "\n", -1)
 
+	fmt.Printf("len-lines: %v\n", len(lines))
+	fmt.Printf("lines: %v\n", lines)
 
+	for _, l := range lines {
+		//fmt.Printf("L[%v]\n", l)
+		k, v := filter.ProcLine(l)
+		fmt.Printf("k:%v v:%v\n", k, v)
+	}
+
+	log.Debug("asd")
 }
 
 
