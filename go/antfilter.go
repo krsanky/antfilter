@@ -65,9 +65,15 @@ func main() {
 
 	for _, l := range lines {
 		//fmt.Printf("L[%v]\n", l)
-		k, v := filter.ProcLine(l)
-		fmt.Printf("k:%v v:%v\n", k, v)
+		k, v, ret := filter.ProcLine(l)
+		fmt.Printf("k:%v v:%v b:%v\n", k, v, ret)
+
+		if ret {
+			filterMap[k] = v
+		}
 	}
+
+	fmt.Printf("filterMap: %v\n", filterMap)
 
 	log.Debug("asd")
 }

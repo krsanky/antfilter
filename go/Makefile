@@ -1,6 +1,6 @@
 # need $GOROOT set
 
-# run make go-env
+# run make go-env to see some context
 include $(GOROOT)/src/Make.inc
 
 PROJ = antfilter
