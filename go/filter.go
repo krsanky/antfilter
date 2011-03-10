@@ -1,22 +1,11 @@
 package filter
 
 import (
-	"os"
-	"io/ioutil"
-	//"fmt"
+	//"os"
+	//"io/ioutil"
 	"strings"
+	//"fmt"
 )
-
-type Filter struct {
-	Filename string
-	contents string
-}
-
-func NewFilter(fn string) (*Filter, os.Error) {
-	contents, err := ioutil.ReadFile(fn)
-	//flt := &Filter{fn, string(contents)}
-	return &Filter{fn, string(contents)}, err
-}
 
 //this returns k, v, b (key, val, bool)
 //bool says if its successful

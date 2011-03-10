@@ -4,11 +4,10 @@ import (
 	"os"
 	"flag"
 	"fmt"
-	//"./file"
 	"./filter"
 	"io/ioutil" //contents, err := ioutil.ReadFile(fn)
 	"strings"
-	"./log"
+	"./target"
 )
 
 // flags / options / usage
@@ -43,30 +42,18 @@ func main() {
 	}
 
 	filterFile, err := ioutil.ReadFile(*fFilterFile)
-	if err == nil {
-		fmt.Printf("filterFile:\n%s\n", filterFile)
-	} else {
+	if err != nil {
 		fmt.Fprintf(os.Stderr, "err: %v\n", err)
 		os.Exit(1);
 	}
 
-	filterMap := map[string] string{}
-	//var filterMap map[string] string
-
-	//filterMap["asd"] = "123"
-
-	fmt.Printf("filterMap: %v\n", filterMap)
-
-
 	lines := strings.Split(string(filterFile), "\n", -1)
 
-	fmt.Printf("len-lines: %v\n", len(lines))
-	fmt.Printf("lines: %v\n", lines)
+	filterMap := map[string] string{}
 
 	for _, l := range lines {
-		//fmt.Printf("L[%v]\n", l)
 		k, v, ret := filter.ProcLine(l)
-		fmt.Printf("k:%v v:%v b:%v\n", k, v, ret)
+		//fmt.Printf("k:%v v:%v b:%v\n", k, v, ret)
 
 		if ret {
 			filterMap[k] = v
@@ -75,7 +62,32 @@ func main() {
 
 	fmt.Printf("filterMap: %v\n", filterMap)
 
-	log.Debug("asd")
+	// ----------
+
+	// iterate thru the commandline files (to be filtered):
+	for i := 0; i < flag.NArg(); i++ {
+		fmt.Printf("filtering file %v: %v ...\n", i, flag.Arg(i))
+		filtering, err := ioutil.ReadFile(flag.Arg(i))
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "err: %v\n", err)
+			os.Exit(1);
+		}
+		fmt.Printf("filtering: %s\n", filtering)
+
+
+		//target.ReplaceToken("some.replace", "val...", &filtering)
+		new_file := target.ReplaceTokens(&filtering, &filterMap)
+		fmt.Printf("new_file: %s\n", new_file)
+
+		//write back the file filtering to filename "i":
+		err = ioutil.WriteFile(flag.Arg(i), *new_file, 0666)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "err: %v\n", err)
+			os.Exit(1);
+		}
+
+	}
+
 }
 
 
